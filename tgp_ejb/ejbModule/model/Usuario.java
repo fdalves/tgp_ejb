@@ -13,9 +13,18 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
+
+
+@NamedQueries(
+{@NamedQuery(name="Usuario.findAll",   query="SELECT u FROM Usuario u"),
+@NamedQuery(name="Usuario.findByLogin", query="SELECT u from Usuario u where u.login = :login"),
+@NamedQuery(name="Usuario.findByEmail", query="SELECT u from Usuario u where u.email = :email")})
+
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String FIND_BY_LOGIN = "Usuario.findByLogin";
+	public static final String FIND_BY_EMAIL = "Usuario.findByEmail";
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
