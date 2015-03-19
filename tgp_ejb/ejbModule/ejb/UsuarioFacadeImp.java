@@ -54,6 +54,16 @@ public class UsuarioFacadeImp implements UsuarioFacade {
 		return dao.findAll();
 	}
 
+	@Override
+	public List<Usuario> listarPorEmail(String email) {
+		return dao.listarPoreEmail(email);
+	}
+
+	@Override
+	public List<Usuario> listarPorLogin(String login) {
+		return dao.listarPorLogin(login);
+	}
+
 	
 
 	

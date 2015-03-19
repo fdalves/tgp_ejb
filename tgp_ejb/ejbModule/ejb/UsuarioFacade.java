@@ -21,6 +21,8 @@ public interface UsuarioFacade {
 	
 	public abstract List<Usuario> findAll();
 	
-
+	public abstract List<Usuario> listarPorEmail(String email);
+	
+	public abstract List<Usuario> listarPorLogin(String login);
 	
 }
