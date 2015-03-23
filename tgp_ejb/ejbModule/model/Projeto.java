@@ -1,7 +1,10 @@
 package model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import java.util.Date;
 import java.util.List;
 
 
@@ -15,6 +18,7 @@ public class Projeto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	@Column(name="projeto_id")
 	private int projetoId;
 
@@ -26,6 +30,15 @@ public class Projeto implements Serializable {
 
 	@Column(name="sigla_projeto")
 	private String siglaProjeto;
+	
+	@Column(name="escopo_fechado")
+	private Boolean escopoFecahdo;
+	
+	@Column(name="data_ini")
+	private Date data_ini;
+	
+	@Column(name="data_fim")
+	private Date data_fim;
 
 	//bi-directional many-to-one association to Atividade
 	@OneToMany(mappedBy="projeto")
@@ -114,4 +127,30 @@ public class Projeto implements Serializable {
 		return usuarioProjeto;
 	}
 
+	public Boolean getEscopoFecahdo() {
+		return escopoFecahdo;
+	}
+
+	public void setEscopoFecahdo(Boolean escopoFecahdo) {
+		this.escopoFecahdo = escopoFecahdo;
+	}
+
+	public Date getData_ini() {
+		return data_ini;
+	}
+
+	public void setData_ini(Date data_ini) {
+		this.data_ini = data_ini;
+	}
+
+	public Date getData_fim() {
+		return data_fim;
+	}
+
+	public void setData_fim(Date data_fim) {
+		this.data_fim = data_fim;
+	}
+
+	
+	
 }
