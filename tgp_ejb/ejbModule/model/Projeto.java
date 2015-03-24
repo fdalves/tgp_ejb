@@ -13,9 +13,20 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Projeto.findAll", query="SELECT p FROM Projeto p")
+
+
+@NamedQueries(
+{@NamedQuery(name="Projeto.findAll", query="SELECT p FROM Projeto p"),
+@NamedQuery(name="Projeto.findByNome", query="SELECT p from Projeto p where p.nomeProjeto = :nomeProjeto"),
+@NamedQuery(name="Projeto.findBySigla", query="SELECT p from Projeto p where p.siglaProjeto = :siglaProjeto")})
+
+
 public class Projeto implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String FIND_BY_NOME = "Projeto.findByNome";
+	public static final String FIND_BY_SIGLA = "Projeto.findBySigla";
+	
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)

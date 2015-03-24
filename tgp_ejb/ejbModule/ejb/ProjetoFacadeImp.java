@@ -54,6 +54,16 @@ import dao.ProjetoDAO;
 		return dao.findAll();
 	}
 
+	@Override
+	public List<Projeto> listarPorNomeProjeto(String nomeProjeto) {
+		return dao.listarPorNomeProjeto(nomeProjeto);
+	}
+
+	@Override
+	public List<Projeto> listarPorSiglaProjeto(String siglaProjeto) {
+		return dao.listarPorSiglaProjeto(siglaProjeto);
+	}
+
 
 	
 

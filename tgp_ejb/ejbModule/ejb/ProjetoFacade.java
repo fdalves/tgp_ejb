@@ -21,6 +21,10 @@ public interface ProjetoFacade {
 	
 	public abstract List<Projeto> findAll();
 	
+	public abstract List<Projeto> listarPorNomeProjeto(String nomeProjeto);
+	
+	public abstract List<Projeto> listarPorSiglaProjeto(String siglaProjeto);
+	
 	
 	
 }
