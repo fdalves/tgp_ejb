@@ -56,7 +56,7 @@ public class Projeto implements Serializable {
 	private List<Atividade> atividades;
 
 	//bi-directional many-to-one association to UsuarioProjeto
-	@OneToMany(mappedBy="projeto")
+	@OneToMany(mappedBy="projeto",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	private List<UsuarioProjeto> usuarioProjetos;
 
 	public Projeto() {
