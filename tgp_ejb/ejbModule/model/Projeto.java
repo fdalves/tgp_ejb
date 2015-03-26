@@ -22,6 +22,14 @@ import java.util.List;
 
 
 public class Projeto implements Serializable {
+	public List<DocProjeto> getDocAtividades() {
+		return docAtividades;
+	}
+
+	public void setDocAtividades(List<DocProjeto> docAtividades) {
+		this.docAtividades = docAtividades;
+	}
+
 	private static final long serialVersionUID = 1L;
 	
 	public static final String FIND_BY_NOME = "Projeto.findByNome";
@@ -58,6 +66,11 @@ public class Projeto implements Serializable {
 	//bi-directional many-to-one association to UsuarioProjeto
 	@OneToMany(mappedBy="projeto",fetch = FetchType.EAGER,cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<UsuarioProjeto> usuarioProjetos;
+	
+	
+	//bi-directional many-to-one association to DocAtividade
+	@OneToMany(mappedBy="projeto")
+	private List<DocProjeto> docAtividades;
 
 	public Projeto() {
 	}
