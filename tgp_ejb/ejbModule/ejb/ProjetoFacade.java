@@ -11,11 +11,11 @@ import model.Projeto;
 @Local
 public interface ProjetoFacade {
 
-	public abstract void save(Projeto Projeto);
+	public abstract void save(Projeto projeto);
 
-	public abstract Projeto update(Projeto Projeto);
+	public abstract Projeto update(Projeto projeto);
 	
-	public abstract void delete(Projeto Projeto);
+	public abstract void delete(Projeto projeto);
 
 	public abstract Projeto find(int entityID);
 	

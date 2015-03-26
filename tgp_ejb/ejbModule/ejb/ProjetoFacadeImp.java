@@ -27,19 +27,19 @@ import dao.ProjetoDAO;
     }
 
 	@Override
-	public void save(Projeto Projeto) {
-		dao.save(Projeto);		
+	public void save(Projeto projeto) {
+		dao.save(projeto);		
 		
 	}
 
 	@Override
-	public Projeto update(Projeto recurso) {		
-		return dao.update(recurso);
+	public Projeto update(Projeto projeto) {		
+		return dao.update(projeto);
 	}
 
 	@Override
-	public void delete(Projeto recurso) {
-		dao.delete(recurso);
+	public void delete(Projeto projeto) {
+		dao.delete(projeto);
 	}
 
 	@Override
