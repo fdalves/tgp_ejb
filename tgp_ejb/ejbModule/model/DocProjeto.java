@@ -35,8 +35,11 @@ public class DocProjeto implements Serializable {
 	@Lob
 	private byte[] doc;
 
-	@Column(name="local_fisico")
-	private String localFisico;
+	@Column(name="type")
+	private String type;
+	
+	@Column(name="extensao")
+	private String extensao;
 
 	@Column(name="nome_doc")
 	private String nomeDoc;
@@ -73,14 +76,6 @@ public class DocProjeto implements Serializable {
 		this.doc = doc;
 	}
 
-	public String getLocalFisico() {
-		return localFisico;
-	}
-
-	public void setLocalFisico(String localFisico) {
-		this.localFisico = localFisico;
-	}
-
 	public String getNomeDoc() {
 		return nomeDoc;
 	}
@@ -95,6 +90,22 @@ public class DocProjeto implements Serializable {
 
 	public void setProjeto(Projeto projeto) {
 		this.projeto = projeto;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getExtensao() {
+		return extensao;
+	}
+
+	public void setExtensao(String extensao) {
+		this.extensao = extensao;
 	}
 
 	
