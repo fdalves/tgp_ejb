@@ -16,8 +16,8 @@ public class Atividade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="aitividade_id")
-	private int aitividadeId;
+	@Column(name="atividade_id")
+	private int atividadeId;
 
 	@Column(name="atividade_nome")
 	private String atividadeNome;
@@ -45,16 +45,19 @@ public class Atividade implements Serializable {
 	//bi-directional many-to-one association to UsuarioAtividade
 	@OneToMany(mappedBy="atividade")
 	private List<UsuarioAtividade> usuarioAtividades;
+	
+	@OneToOne(optional=true, mappedBy="atividade")
+    private ConfigAtividade configAtividade; 
 
 	public Atividade() {
 	}
 
 	public int getAitividadeId() {
-		return this.aitividadeId;
+		return this.atividadeId;
 	}
 
 	public void setAitividadeId(int aitividadeId) {
-		this.aitividadeId = aitividadeId;
+		this.atividadeId = aitividadeId;
 	}
 
 	public String getAtividadeNome() {
@@ -140,5 +143,23 @@ public class Atividade implements Serializable {
 
 		return usuarioAtividade;
 	}
+
+	public ConfigAtividade getConfigAtividade() {
+		return configAtividade;
+	}
+
+	public void setConfigAtividade(ConfigAtividade configAtividade) {
+		this.configAtividade = configAtividade;
+	}
+
+	public int getAtividadeId() {
+		return atividadeId;
+	}
+
+	public void setAtividadeId(int atividadeId) {
+		this.atividadeId = atividadeId;
+	}
+	
+	
 
 }
