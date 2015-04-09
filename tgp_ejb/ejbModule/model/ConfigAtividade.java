@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -16,6 +17,7 @@ public class ConfigAtividade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	@Column(name="config_atividade_id")
 	private int configAtividadeId;
 
@@ -78,6 +80,14 @@ public class ConfigAtividade implements Serializable {
 
 	public void setTrabDom(boolean trabDom) {
 		this.trabDom = trabDom;
+	}
+
+	public Atividade getAtividade() {
+		return atividade;
+	}
+
+	public void setAtividade(Atividade atividade) {
+		this.atividade = atividade;
 	}
 
 	
