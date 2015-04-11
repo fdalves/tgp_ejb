@@ -1,8 +1,15 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 
 /**
@@ -15,91 +22,80 @@ public class Cargo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	@Column(name="cargo_id")
 	private int cargoId;
 
-	private String cargo;
-
-	@Column(name="desc_cargo")
-	private String descCargo;
-
-	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="cargo")
-	private List<Usuario> usuarios;
-
-	//bi-directional many-to-one association to UsuarioAtividade
-	@OneToMany(mappedBy="cargo")
-	private List<UsuarioAtividade> usuarioAtividades;
-
+	
+	@OneToOne(optional=true)
+    @JoinColumn(name="usuario_atividade_id", unique=true, nullable=true)	
+	private UsuarioAtividade usuarioAtividade;
+	
+	
+	@Column(name="testador")
+	private boolean testador;
+	@Column(name="programador")
+	private boolean programador;
+	@Column(name="analista")
+	private boolean analista;
+	@Column(name="gerente")
+	private boolean gerente;
+	
 	public Cargo() {
 	}
 
 	public int getCargoId() {
-		return this.cargoId;
+		return cargoId;
 	}
 
 	public void setCargoId(int cargoId) {
 		this.cargoId = cargoId;
 	}
 
-	public String getCargo() {
-		return this.cargo;
-	}
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
-
-	public String getDescCargo() {
-		return this.descCargo;
-	}
-
-	public void setDescCargo(String descCargo) {
-		this.descCargo = descCargo;
-	}
-
-	public List<Usuario> getUsuarios() {
-		return this.usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public Usuario addUsuario(Usuario usuario) {
-		getUsuarios().add(usuario);
-		usuario.setCargo(this);
-
-		return usuario;
-	}
-
-	public Usuario removeUsuario(Usuario usuario) {
-		getUsuarios().remove(usuario);
-		usuario.setCargo(null);
-
-		return usuario;
-	}
-
-	public List<UsuarioAtividade> getUsuarioAtividades() {
-		return this.usuarioAtividades;
-	}
-
-	public void setUsuarioAtividades(List<UsuarioAtividade> usuarioAtividades) {
-		this.usuarioAtividades = usuarioAtividades;
-	}
-
-	public UsuarioAtividade addUsuarioAtividade(UsuarioAtividade usuarioAtividade) {
-		getUsuarioAtividades().add(usuarioAtividade);
-		usuarioAtividade.setCargo(this);
-
+	public UsuarioAtividade getUsuarioAtividade() {
 		return usuarioAtividade;
 	}
 
-	public UsuarioAtividade removeUsuarioAtividade(UsuarioAtividade usuarioAtividade) {
-		getUsuarioAtividades().remove(usuarioAtividade);
-		usuarioAtividade.setCargo(null);
-
-		return usuarioAtividade;
+	public void setUsuarioAtividade(UsuarioAtividade usuarioAtividade) {
+		this.usuarioAtividade = usuarioAtividade;
 	}
+
+	public boolean isTestador() {
+		return testador;
+	}
+
+	public void setTestador(boolean testador) {
+		this.testador = testador;
+	}
+
+	public boolean isProgramador() {
+		return programador;
+	}
+
+	public void setProgramador(boolean programador) {
+		this.programador = programador;
+	}
+
+	public boolean isAnalista() {
+		return analista;
+	}
+
+	public void setAnalista(boolean analista) {
+		this.analista = analista;
+	}
+
+	public boolean isGerente() {
+		return gerente;
+	}
+
+	public void setGerente(boolean gerente) {
+		this.gerente = gerente;
+	}
+
+	
+	
+	
+
+	
 
 }

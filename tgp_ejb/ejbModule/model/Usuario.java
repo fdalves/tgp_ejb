@@ -48,10 +48,7 @@ public class Usuario implements Serializable {
 	@Column(name="ultimo_login")
 	private Date ultimoLogin;
 
-	//bi-directional many-to-one association to Cargo
-	@ManyToOne
-	@JoinColumn(name="cargo_id")
-	private Cargo cargo;
+	
 
 	//bi-directional many-to-one association to TipoUsuario
 	@ManyToOne
@@ -117,13 +114,7 @@ public class Usuario implements Serializable {
 		this.ultimoLogin = ultimoLogin;
 	}
 
-	public Cargo getCargo() {
-		return this.cargo;
-	}
-
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
-	}
+	
 
 	public TipoUsuario getTipoUsuario() {
 		return this.tipoUsuario;
