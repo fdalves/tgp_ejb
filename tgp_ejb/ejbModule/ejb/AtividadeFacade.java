@@ -21,7 +21,7 @@ public interface AtividadeFacade {
 	
 	public abstract List<Atividade> findAll();
 	
-	public abstract void saveTeste();
+	public abstract String savarAtividade(Atividade atividade);
 	
 	
 	

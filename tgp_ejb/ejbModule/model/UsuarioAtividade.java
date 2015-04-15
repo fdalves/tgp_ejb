@@ -35,7 +35,7 @@ public class UsuarioAtividade implements Serializable {
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
 
-	@OneToOne(optional=true, mappedBy="usuarioAtividade")
+	@OneToOne(optional=true, mappedBy="UsuarioAtividade")
     private Cargo cargo;
 	
 	public UsuarioAtividade() {

@@ -8,9 +8,13 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import model.Atividade;
-import model.Usuario;
+import model.Cargo;
+import model.ConfigAtividade;
+import model.UsuarioAtividade;
 import dao.AtividadeDAO;
-import dao.UsuarioDAO;
+import dao.CargoDAO;
+import dao.ConfigAtividadeDAO;
+import dao.UsuarioAtividadeDAO;
 
 
 
@@ -23,9 +27,15 @@ import dao.UsuarioDAO;
     @EJB
     private AtividadeDAO dao;
     
-   @EJB
-   private UsuarioDAO usuarioDAO;
+    @EJB
+   	private UsuarioAtividadeDAO usuarioAtividadeDAO;
    
+    @EJB
+    private ConfigAtividadeDAO configAtividadeDAO;
+   
+    @EJB
+    private CargoDAO cargoDAO;
+    
     
     public AtividadeFacadeImp() {
     	
@@ -61,26 +71,36 @@ import dao.UsuarioDAO;
 	
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void saveTeste() {
+	public String savarAtividade(Atividade atividade) {
+		String msg = null;
 		try {
-			Atividade atividade = new Atividade();
-			
-			atividade.setDescAtividade(".........");
-			
-			Usuario usuario = new Usuario();
-			usuario.setUsuarioId(25);
-			usuario.setNome("..........");
-			
-			dao.save(atividade);
-			usuarioDAO.save(usuario);
-			
-			
+			this.dao.save(atividade);
+			atividade = dao.find(atividade.getAitividadeId());
+			ConfigAtividade configAtividade = atividade.getConfigAtividade();
+			configAtividade.setAtividade(atividade);
+			configAtividadeDAO.save(configAtividade);
+			atividade.setConfigAtividade(configAtividade);
+			List<UsuarioAtividade> usuarioAtividades = atividade.getUsuarioAtividades();
+			for (UsuarioAtividade usuarioAtividade : usuarioAtividades) {
+				usuarioAtividade.setAtividade(atividade);
+				
+				Cargo cargo = usuarioAtividade.getCargo();
+				if (cargo != null){
+					cargoDAO.save(cargo);
+				}
+				cargo = cargoDAO.find(cargo.getCargoId());
+				usuarioAtividade.setCargo(cargo);
+				usuarioAtividadeDAO.save(usuarioAtividade);
+			}
+			atividade = dao.find(atividade.getAitividadeId());
+			dao.update(atividade);
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			msg = e.getMessage();
 			e.printStackTrace();
 		}
 		
+		return msg;
 	}
 
 	
