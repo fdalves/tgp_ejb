@@ -51,6 +51,13 @@ public class Atividade implements Serializable {
 	
 	@OneToOne(optional=true, mappedBy="atividade")
     private ConfigAtividade configAtividade; 
+	
+	
+	@OneToOne (cascade=CascadeType.ALL)
+    @JoinColumn(name="usuarioId", unique= false, nullable=true, insertable=true, updatable=true)
+    private Usuario gerente; 
+	
+	
 
 	public Atividade() {
 	}
@@ -161,6 +168,14 @@ public class Atividade implements Serializable {
 
 	public void setAtividadeId(int atividadeId) {
 		this.atividadeId = atividadeId;
+	}
+
+	public Usuario getGerente() {
+		return gerente;
+	}
+
+	public void setGerente(Usuario gerente) {
+		this.gerente = gerente;
 	}
 	
 	
