@@ -10,11 +10,13 @@ import javax.ejb.TransactionAttributeType;
 import model.Atividade;
 import model.Cargo;
 import model.ConfigAtividade;
+import model.DocAtividade;
 import model.Usuario;
 import model.UsuarioAtividade;
 import dao.AtividadeDAO;
 import dao.CargoDAO;
 import dao.ConfigAtividadeDAO;
+import dao.DocAtividadeDAO;
 import dao.UsuarioAtividadeDAO;
 import dao.UsuarioDAO;
 
@@ -28,19 +30,16 @@ import dao.UsuarioDAO;
 
     @EJB
     private AtividadeDAO dao;
-    
     @EJB
    	private UsuarioAtividadeDAO usuarioAtividadeDAO;
-   
     @EJB
     private ConfigAtividadeDAO configAtividadeDAO;
-   
     @EJB
     private CargoDAO cargoDAO;
-    
     @EJB
     private UsuarioDAO usuarioDAO;
-    
+    @EJB
+    private DocAtividadeDAO docAtividadeDAO;
     
     
     public AtividadeFacadeImp() {
@@ -82,6 +81,15 @@ import dao.UsuarioDAO;
 		try {
 			Usuario usuario = this.usuarioDAO.find(atividade.getGerente().getUsuarioId());
 			atividade.setGerente(usuario);
+			
+			List<DocAtividade> list = atividade.getDocAtividades();
+			if (list!=null && !list.isEmpty()){
+				for (DocAtividade docAtividade : list) {
+					 docAtividade.setAtividade(atividade);
+					 docAtividadeDAO.save(docAtividade);
+				}
+			}
+			
 			this.dao.save(atividade);
 			atividade = dao.find(atividade.getAitividadeId());
 			ConfigAtividade configAtividade = atividade.getConfigAtividade();
@@ -89,6 +97,7 @@ import dao.UsuarioDAO;
 			configAtividadeDAO.save(configAtividade);
 			atividade.setConfigAtividade(configAtividade);
 			List<UsuarioAtividade> usuarioAtividades = atividade.getUsuarioAtividades();
+			
 			for (UsuarioAtividade usuarioAtividade : usuarioAtividades) {
 				usuarioAtividade.setAtividade(atividade);
 				Cargo cargo = usuarioAtividade.getCargo();
@@ -104,6 +113,7 @@ import dao.UsuarioDAO;
 				usuarioAtividadeDAO.update(usuarioAtividade);
 				cargoDAO.update(cargo);
 			}
+			
 			atividade = dao.find(atividade.getAitividadeId());
 			dao.update(atividade);
 			
