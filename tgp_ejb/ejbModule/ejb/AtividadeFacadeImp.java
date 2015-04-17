@@ -17,6 +17,7 @@ import dao.AtividadeDAO;
 import dao.CargoDAO;
 import dao.ConfigAtividadeDAO;
 import dao.DocAtividadeDAO;
+import dao.ProjetoDAO;
 import dao.UsuarioAtividadeDAO;
 import dao.UsuarioDAO;
 
@@ -40,6 +41,8 @@ import dao.UsuarioDAO;
     private UsuarioDAO usuarioDAO;
     @EJB
     private DocAtividadeDAO docAtividadeDAO;
+    @EJB
+    private ProjetoDAO projetoDAO;
     
     
     public AtividadeFacadeImp() {
@@ -91,7 +94,7 @@ import dao.UsuarioDAO;
 			}
 			
 			this.dao.save(atividade);
-			atividade = dao.find(atividade.getAitividadeId());
+			atividade = dao.find(atividade.getAtividadeId());
 			ConfigAtividade configAtividade = atividade.getConfigAtividade();
 			configAtividade.setAtividade(atividade);
 			configAtividadeDAO.save(configAtividade);
@@ -114,7 +117,7 @@ import dao.UsuarioDAO;
 				cargoDAO.update(cargo);
 			}
 			
-			atividade = dao.find(atividade.getAitividadeId());
+			atividade = dao.find(atividade.getAtividadeId());
 			dao.update(atividade);
 			
 		} catch (Exception e) {
@@ -123,6 +126,44 @@ import dao.UsuarioDAO;
 		}
 		
 		return msg;
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@Override
+	public String atualizaAtividade(Atividade oldAtiv, Atividade newAtiv){
+		String msg = null;
+		
+		try {
+			
+			//oldAtiv.setProjeto(projetoDAO.find(newAtiv.getProjeto().getProjetoId()));
+			//oldAtiv.setGerente(usuarioDAO.find(newAtiv.getGerente().getUsuarioId()));
+			
+			oldAtiv.setAtividadeNome(newAtiv.getAtividadeNome());
+			oldAtiv.setDescAtividade(newAtiv.getDescAtividade());
+			oldAtiv.setDtIni(newAtiv.getDtIni());
+			oldAtiv.setDtFim(newAtiv.getDtFim());
+			oldAtiv.setDivideReplicaTempo(newAtiv.getDivideReplicaTempo());
+			oldAtiv.setPrioridade(newAtiv.getPrioridade());
+			oldAtiv.setGerente(newAtiv.getGerente());
+			oldAtiv.setProjeto(newAtiv.getProjeto());
+			dao.update(oldAtiv);
+			
+		} catch (Exception e) {
+			msg = e.getMessage();
+			e.printStackTrace();
+		}
+		
+		return msg;
+	}
+
+	@Override
+	public List<UsuarioAtividade> findUsuarioAtividade(int atividadeId) {
+		return usuarioAtividadeDAO.listarPorAtividade(atividadeId);
+	}
+
+	@Override
+	public List<DocAtividade> findDocAtividade(int atividadeId) {
+		return docAtividadeDAO.listarPorAtividade(atividadeId);
 	}
 
 	

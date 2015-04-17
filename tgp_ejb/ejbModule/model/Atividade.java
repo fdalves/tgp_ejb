@@ -35,6 +35,14 @@ public class Atividade implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="dt_ini")
 	private Date dtIni;
+	
+	@Column(name="prioridade")
+	private String prioridade;
+	
+	
+	@Column(name="divideReplicaTempo")
+	private String divideReplicaTempo;
+
 
 	//bi-directional many-to-one association to Projeto
 	@ManyToOne
@@ -62,14 +70,9 @@ public class Atividade implements Serializable {
 	public Atividade() {
 	}
 
-	public int getAitividadeId() {
-		return this.atividadeId;
-	}
-
-	public void setAitividadeId(int aitividadeId) {
-		this.atividadeId = aitividadeId;
-	}
-
+	
+	
+	
 	public String getAtividadeNome() {
 		return this.atividadeNome;
 	}
@@ -176,6 +179,28 @@ public class Atividade implements Serializable {
 
 	public void setGerente(Usuario gerente) {
 		this.gerente = gerente;
+	}
+
+	public String getPrioridade() {
+		return prioridade;
+	}
+
+	public void setPrioridade(String prioridade) {
+		this.prioridade = prioridade;
+	}
+
+
+
+
+	public String getDivideReplicaTempo() {
+		return divideReplicaTempo;
+	}
+
+
+
+
+	public void setDivideReplicaTempo(String divideReplicaTempo) {
+		this.divideReplicaTempo = divideReplicaTempo;
 	}
 	
 	

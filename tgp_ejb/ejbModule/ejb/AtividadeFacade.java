@@ -5,6 +5,8 @@ import java.util.List;
 import javax.ejb.Local;
 
 import model.Atividade;
+import model.DocAtividade;
+import model.UsuarioAtividade;
 
 
 
@@ -23,6 +25,12 @@ public interface AtividadeFacade {
 	
 	public abstract String savarAtividade(Atividade atividade);
 	
+	public abstract List<UsuarioAtividade> findUsuarioAtividade(int atividadeId);
+	
+	public abstract List<DocAtividade> findDocAtividade(int atividadeId);
+	
+	
+	public abstract String atualizaAtividade(Atividade oldAtiv, Atividade newAtiv);
 	
 	
 }

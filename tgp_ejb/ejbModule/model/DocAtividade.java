@@ -11,9 +11,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="doc_atividade")
-@NamedQuery(name="DocAtividade.findAll", query="SELECT d FROM DocAtividade d")
+@NamedQueries(
+{@NamedQuery(name="DocAtividade.findAll", query="SELECT d FROM DocAtividade d"),
+@NamedQuery(name="DocAtividade.findByAtividade", query="SELECT d FROM DocAtividade d where d.atividade.atividadeId = :atividadeId")})
 public class DocAtividade implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String FIND_BY_ATIVIDADE = "DocAtividade.findByAtividade";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)

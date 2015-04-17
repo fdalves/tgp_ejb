@@ -11,9 +11,13 @@ import javax.persistence.*;
  */
 @Entity(name="UsuarioAtividade")
 @Table(name="usuario_atividade")
-@NamedQuery(name="UsuarioAtividade.findAll", query="SELECT u FROM UsuarioAtividade u")
+@NamedQueries(
+{@NamedQuery(name="UsuarioAtividade.findAll", query="SELECT u FROM UsuarioAtividade u"),
+ @NamedQuery(name="UsuarioAtividade.findByAtividade", query="SELECT u FROM UsuarioAtividade u where u.atividade.atividadeId = :atividadeId ")})
+
 public class UsuarioAtividade implements Serializable {
 	private static final long serialVersionUID = 1L;
+	public static final String FIND_BY_ATIVIDADE = "UsuarioAtividade.findByAtividade";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -27,7 +31,7 @@ public class UsuarioAtividade implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	//bi-directional many-to-one association to Atividade
 	@ManyToOne
-	@JoinColumn(name="aitividade_id")
+	@JoinColumn(name="atividade_id")
 	private Atividade atividade;
 
 	//bi-directional many-o-one association to Usuario
