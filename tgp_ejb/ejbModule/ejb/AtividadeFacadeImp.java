@@ -138,6 +138,14 @@ import dao.UsuarioDAO;
 			//oldAtiv.setProjeto(projetoDAO.find(newAtiv.getProjeto().getProjetoId()));
 			//oldAtiv.setGerente(usuarioDAO.find(newAtiv.getGerente().getUsuarioId()));
 			
+			oldAtiv.getConfigAtividade().setQuantDiasFolgaFeriado(newAtiv.getConfigAtividade().getQuantDiasFolgaFeriado());
+			oldAtiv.getConfigAtividade().setQuantHorasDias(newAtiv.getConfigAtividade().getQuantHorasDias());
+			oldAtiv.getConfigAtividade().setTrabDom(newAtiv.getConfigAtividade().isTrabDom());
+			oldAtiv.getConfigAtividade().setTrabSab(newAtiv.getConfigAtividade().isTrabSab());
+			
+			oldAtiv.setConfigAtividade(configAtividadeDAO.update(oldAtiv.getConfigAtividade()));
+			
+			
 			oldAtiv.setAtividadeNome(newAtiv.getAtividadeNome());
 			oldAtiv.setDescAtividade(newAtiv.getDescAtividade());
 			oldAtiv.setDtIni(newAtiv.getDtIni());
