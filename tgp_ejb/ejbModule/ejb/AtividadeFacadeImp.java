@@ -130,14 +130,12 @@ import dao.UsuarioDAO;
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
-	public String atualizaAtividade(Atividade oldAtiv, Atividade newAtiv){
+	public String atualizaAtividade(Atividade oldAtiv, Atividade newAtiv, List<UsuarioAtividade> lsiusuAtiviOld,List<UsuarioAtividade> lsiusuAtiviNew){
 		String msg = null;
 		
 		try {
 			
-			//oldAtiv.setProjeto(projetoDAO.find(newAtiv.getProjeto().getProjetoId()));
-			//oldAtiv.setGerente(usuarioDAO.find(newAtiv.getGerente().getUsuarioId()));
-			
+			this.addUsuarioAtividade(lsiusuAtiviOld, lsiusuAtiviNew, newAtiv);
 			oldAtiv.getConfigAtividade().setQuantDiasFolgaFeriado(newAtiv.getConfigAtividade().getQuantDiasFolgaFeriado());
 			oldAtiv.getConfigAtividade().setQuantHorasDias(newAtiv.getConfigAtividade().getQuantHorasDias());
 			oldAtiv.getConfigAtividade().setTrabDom(newAtiv.getConfigAtividade().isTrabDom());
@@ -164,6 +162,20 @@ import dao.UsuarioDAO;
 		return msg;
 	}
 
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	private void addUsuarioAtividade(List<UsuarioAtividade> lsiusuAtiviOld,List<UsuarioAtividade> lsiusuAtiviNew, Atividade newAtiv){
+		for (UsuarioAtividade usuarioAtividadeNew : lsiusuAtiviNew) {
+			if(usuarioAtividadeNew.getUsuarioAtividadeId() == 0){
+				usuarioAtividadeNew.setAtividade(newAtiv);
+				Cargo c = usuarioAtividadeNew.getCargo();
+				this.cargoDAO.save(c);
+				usuarioAtividadeNew.setCargo(c);
+				this.usuarioAtividadeDAO.save(usuarioAtividadeNew);
+			}
+		}
+	}
+	
 	@Override
 	public List<UsuarioAtividade> findUsuarioAtividade(int atividadeId) {
 		return usuarioAtividadeDAO.listarPorAtividade(atividadeId);

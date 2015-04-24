@@ -30,7 +30,7 @@ public interface AtividadeFacade {
 	public abstract List<DocAtividade> findDocAtividade(int atividadeId);
 	
 	
-	public abstract String atualizaAtividade(Atividade oldAtiv, Atividade newAtiv);
+	public abstract String atualizaAtividade(Atividade oldAtiv, Atividade newAtiv, List<UsuarioAtividade> listOld, List<UsuarioAtividade> listNew);
 	
 	
 }
