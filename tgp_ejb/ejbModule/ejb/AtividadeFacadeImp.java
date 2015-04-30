@@ -130,12 +130,21 @@ import dao.UsuarioDAO;
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
-	public String atualizaAtividade(Atividade oldAtiv, Atividade newAtiv, List<UsuarioAtividade> lsiusuAtiviOld,List<UsuarioAtividade> lsiusuAtiviNew){
+	public String atualizaAtividade(Atividade oldAtiv, Atividade newAtiv, 
+									List<UsuarioAtividade> lsiusuAtiviOld,List<UsuarioAtividade> lsiusuAtiviNew,
+									List<DocAtividade> listDocOld,List<DocAtividade> listDocNew){
 		String msg = null;
 		
 		try {
 			
+			this.addDocAtividade(listDocOld, listDocNew, newAtiv);
+			this.removeDocAtividade(listDocOld, listDocNew, newAtiv);
+			
+			
 			this.addUsuarioAtividade(lsiusuAtiviOld, lsiusuAtiviNew, newAtiv);
+			this.removeUsuarioAtividade(lsiusuAtiviOld, lsiusuAtiviNew, newAtiv);
+			this.updateUsuarioAtividade(lsiusuAtiviOld, lsiusuAtiviNew, newAtiv);
+			
 			oldAtiv.getConfigAtividade().setQuantDiasFolgaFeriado(newAtiv.getConfigAtividade().getQuantDiasFolgaFeriado());
 			oldAtiv.getConfigAtividade().setQuantHorasDias(newAtiv.getConfigAtividade().getQuantHorasDias());
 			oldAtiv.getConfigAtividade().setTrabDom(newAtiv.getConfigAtividade().isTrabDom());
@@ -163,6 +172,60 @@ import dao.UsuarioDAO;
 	}
 
 	
+	
+	
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	private void removeDocAtividade(List<DocAtividade> listDocOld,
+			List<DocAtividade> listDocNew, Atividade newAtiv) {
+		
+		for (DocAtividade daOld : listDocOld) {
+			boolean contem = false;
+			for (DocAtividade daNew : listDocNew) {
+				if (daOld.getDocAtividadeId() == daNew.getDocAtividadeId()) contem = true;
+				if(contem) break;
+			}
+			if (!contem){
+				this.docAtividadeDAO.delete(daOld);
+			}
+		}
+		
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	private void addDocAtividade(List<DocAtividade> listDocOld,
+			List<DocAtividade> listDocNew, Atividade newAtiv) {
+		
+		for (DocAtividade da : listDocNew) {
+			if(da.getDocAtividadeId() == 0){
+				da.setAtividade(newAtiv);
+				this.docAtividadeDAO.save(da);
+			}
+		}
+		
+		
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	private void updateUsuarioAtividade(List<UsuarioAtividade> lsiusuAtiviOld,List<UsuarioAtividade> lsiusuAtiviNew, Atividade newAtiv) {
+		
+		for (UsuarioAtividade usuarioAtividade : lsiusuAtiviOld) {
+			
+			for (UsuarioAtividade usuarioAtividadeNew : lsiusuAtiviNew) {
+				if (usuarioAtividade.getUsuarioAtividadeId() == usuarioAtividadeNew.getUsuarioAtividadeId()) {
+					Cargo c = usuarioAtividade.getCargo();
+					Cargo nc = usuarioAtividadeNew.getCargo();
+					c.setAnalista(nc.isAnalista());
+					c.setGerente(nc.isGerente());
+					c.setProgramador(nc.isProgramador());
+					c.setTestador(nc.isTestador());
+					cargoDAO.update(c);
+					usuarioAtividade.setCargo(c);
+				}
+			}
+		}
+	}
+
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	private void addUsuarioAtividade(List<UsuarioAtividade> lsiusuAtiviOld,List<UsuarioAtividade> lsiusuAtiviNew, Atividade newAtiv){
 		for (UsuarioAtividade usuarioAtividadeNew : lsiusuAtiviNew) {
@@ -174,6 +237,27 @@ import dao.UsuarioDAO;
 				this.usuarioAtividadeDAO.save(usuarioAtividadeNew);
 			}
 		}
+	}
+	
+	
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	private void removeUsuarioAtividade(List<UsuarioAtividade> lsiusuAtiviOld,List<UsuarioAtividade> lsiusuAtiviNew, Atividade newAtiv){
+		
+		for (UsuarioAtividade usuarioAtividade : lsiusuAtiviOld) {
+			boolean contem = false;
+			for (UsuarioAtividade usuarioAtividadeNew : lsiusuAtiviNew) {
+				if (usuarioAtividade.getUsuarioAtividadeId() == usuarioAtividadeNew.getUsuarioAtividadeId()) contem = true;
+				if(contem) break;
+			}
+			if (!contem){
+				Cargo c = usuarioAtividade.getCargo();
+				this.cargoDAO.delete(c);
+				usuarioAtividade.setCargo(null);
+				this.usuarioAtividadeDAO.delete(usuarioAtividade);
+			}
+		}
+		
 	}
 	
 	@Override
