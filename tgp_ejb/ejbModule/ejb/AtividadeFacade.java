@@ -34,5 +34,7 @@ public interface AtividadeFacade {
 										List<UsuarioAtividade> listOld, List<UsuarioAtividade> listNew,
 										List<DocAtividade> listDocOld,List<DocAtividade> listDocNew);
 	
+	public abstract List<UsuarioAtividade> findAtividadeByUsuario(int atividadeId);
+	
 	
 }

@@ -42,7 +42,9 @@ public class Atividade implements Serializable {
 	
 	@Column(name="divideReplicaTempo")
 	private String divideReplicaTempo;
-
+	
+	@Column(name="dt_insert")
+	private Date dtInsert;
 
 	//bi-directional many-to-one association to Projeto
 	@ManyToOne
@@ -201,6 +203,20 @@ public class Atividade implements Serializable {
 
 	public void setDivideReplicaTempo(String divideReplicaTempo) {
 		this.divideReplicaTempo = divideReplicaTempo;
+	}
+
+
+
+
+	public Date getDtInsert() {
+		return dtInsert;
+	}
+
+
+
+
+	public void setDtInsert(Date dtInsert) {
+		this.dtInsert = dtInsert;
 	}
 	
 	

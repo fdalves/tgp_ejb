@@ -13,11 +13,13 @@ import javax.persistence.*;
 @Table(name="usuario_atividade")
 @NamedQueries(
 {@NamedQuery(name="UsuarioAtividade.findAll", query="SELECT u FROM UsuarioAtividade u"),
- @NamedQuery(name="UsuarioAtividade.findByAtividade", query="SELECT u FROM UsuarioAtividade u where u.atividade.atividadeId = :atividadeId ")})
+ @NamedQuery(name="UsuarioAtividade.findByAtividade", query="SELECT u FROM UsuarioAtividade u where u.atividade.atividadeId = :atividadeId "),
+ @NamedQuery(name="UsuarioAtividade.findByUsuario", query="SELECT u FROM UsuarioAtividade u where u.usuario.usuarioId = :usuarioId ")})
 
 public class UsuarioAtividade implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String FIND_BY_ATIVIDADE = "UsuarioAtividade.findByAtividade";
+	public static final String FIND_BY_USUARIO = "UsuarioAtividade.findByUsuario";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -41,6 +43,10 @@ public class UsuarioAtividade implements Serializable {
 
 	@OneToOne(optional=true, mappedBy="usuarioAtividade")
     private Cargo cargo;
+	
+	
+	@Column(name="horas_apropriadas")
+	private Integer horasApropriadas;
 	
 	public UsuarioAtividade() {
 	}
@@ -93,6 +99,14 @@ public class UsuarioAtividade implements Serializable {
 
 	public void setTempId(int tempId) {
 		this.tempId = tempId;
+	}
+
+	public Integer getHorasApropriadas() {
+		return horasApropriadas;
+	}
+
+	public void setHorasApropriadas(Integer horasApropriadas) {
+		this.horasApropriadas = horasApropriadas;
 	}
 	
 	

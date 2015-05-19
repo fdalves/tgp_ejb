@@ -23,5 +23,11 @@ public class UsuarioAtividadeDAO extends GenericDAO<UsuarioAtividade> {
 	    parameters.put("atividadeId",atividadeId);     
 	    return super.findListResult(UsuarioAtividade.FIND_BY_ATIVIDADE,parameters);
 	}
+	
+	public List<UsuarioAtividade> listarPorUsuario(int usuarioId){
+		Map<String, Object> parameters = new HashMap<String, Object>();
+	    parameters.put("usuarioId",usuarioId);     
+	    return super.findListResult(UsuarioAtividade.FIND_BY_USUARIO,parameters);
+	}
 	 
 }
