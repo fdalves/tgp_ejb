@@ -48,6 +48,12 @@ public class UsuarioAtividade implements Serializable {
 	@Column(name="horas_apropriadas")
 	private Integer horasApropriadas;
 	
+	
+	
+	private Float diasTrabalhados;
+	private Float horasTrabalho;
+	
+	
 	public UsuarioAtividade() {
 	}
 
@@ -108,6 +114,30 @@ public class UsuarioAtividade implements Serializable {
 	public void setHorasApropriadas(Integer horasApropriadas) {
 		this.horasApropriadas = horasApropriadas;
 	}
+
+	
+
+	
+
+	public Float getDiasTrabalhados() {
+		return diasTrabalhados;
+	}
+
+	public void setDiasTrabalhados(Float diasTrabalhados) {
+		this.diasTrabalhados = diasTrabalhados;
+	}
+
+	public Float getHorasTrabalho() {
+		return horasTrabalho;
+	}
+
+	public void setHorasTrabalho(Float horasTrabalho) {
+		this.horasTrabalho = horasTrabalho;
+	}
+
+	
+
+	
 	
 	
 

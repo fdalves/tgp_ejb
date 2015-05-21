@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -39,6 +40,14 @@ public class DocAtividade implements Serializable {
 	
 	@Column(name="type_name")
 	private String typeName;
+	
+	
+	@Column(name="usuario_atualizador")
+	private String usuarioAtualizador;
+	
+	@Column(name="data_insert")
+	private Date dataInsert;
+	
 	
 	@Column(name="extensao")
 	private String extensao;
@@ -113,6 +122,22 @@ public class DocAtividade implements Serializable {
 
 	public void setExtensao(String extensao) {
 		this.extensao = extensao;
+	}
+
+	public String getUsuarioAtualizador() {
+		return usuarioAtualizador;
+	}
+
+	public void setUsuarioAtualizador(String usuarioAtualizador) {
+		this.usuarioAtualizador = usuarioAtualizador;
+	}
+
+	public Date getDataInsert() {
+		return dataInsert;
+	}
+
+	public void setDataInsert(Date dataInsert) {
+		this.dataInsert = dataInsert;
 	}
 	
 	
