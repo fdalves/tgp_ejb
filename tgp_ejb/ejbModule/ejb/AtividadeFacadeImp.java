@@ -275,6 +275,11 @@ import dao.UsuarioDAO;
 		return usuarioAtividadeDAO.listarPorUsuario(atividadeId);
 	}
 
+	@Override
+	public List<Atividade> findAtividadeByProjeto(int projetoId) {
+		return dao.listarPorProjeto(projetoId);
+	}
+
 	
 
 	

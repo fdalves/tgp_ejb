@@ -36,5 +36,7 @@ public interface AtividadeFacade {
 	
 	public abstract List<UsuarioAtividade> findAtividadeByUsuario(int atividadeId);
 	
+	public abstract List<Atividade> findAtividadeByProjeto(int projetoId);
+	
 	
 }
