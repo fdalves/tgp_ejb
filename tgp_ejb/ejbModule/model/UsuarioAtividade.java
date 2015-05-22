@@ -46,9 +46,11 @@ public class UsuarioAtividade implements Serializable {
 	
 	
 	@Column(name="horas_apropriadas")
-	private Integer horasApropriadas;
+	private Float horasApropriadas;
 	
 	
+	@Column(name="percent_conclusao")
+	private Integer percentConclusao;
 	
 	private Float diasTrabalhados;
 	private Float horasTrabalho;
@@ -107,11 +109,11 @@ public class UsuarioAtividade implements Serializable {
 		this.tempId = tempId;
 	}
 
-	public Integer getHorasApropriadas() {
+	public Float getHorasApropriadas() {
 		return horasApropriadas;
 	}
 
-	public void setHorasApropriadas(Integer horasApropriadas) {
+	public void setHorasApropriadas(Float horasApropriadas) {
 		this.horasApropriadas = horasApropriadas;
 	}
 
@@ -133,6 +135,14 @@ public class UsuarioAtividade implements Serializable {
 
 	public void setHorasTrabalho(Float horasTrabalho) {
 		this.horasTrabalho = horasTrabalho;
+	}
+
+	public Integer getPercentConclusao() {
+		return percentConclusao;
+	}
+
+	public void setPercentConclusao(Integer percentConclusao) {
+		this.percentConclusao = percentConclusao;
 	}
 
 	
