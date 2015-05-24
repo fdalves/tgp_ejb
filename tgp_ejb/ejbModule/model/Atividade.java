@@ -72,8 +72,8 @@ public class Atividade implements Serializable {
     private Usuario gerente; 
 	
 	
-	@Column(name="sitiacao")
-	private String sitiacao;
+	
+	private String situacao;
 	
 
 	public Atividade() {
@@ -222,24 +222,25 @@ public class Atividade implements Serializable {
 
 
 
-	public String getSitiacao() {
-		return sitiacao;
-	}
-
-
-
-
-	public void setSitiacao(String sitiacao) {
-		this.sitiacao = sitiacao;
-	}
-
-
-
 
 	public void setDtInsert(Date dtInsert) {
 		this.dtInsert = dtInsert;
 	}
-	
-	
 
+
+
+
+	public String getSituacao() {
+		return situacao;
+	}
+
+
+
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
+	
+	
+	
 }
