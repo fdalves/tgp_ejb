@@ -17,7 +17,7 @@ import java.util.List;
 {
 @NamedQuery(name="Atividade.findAll", query="SELECT a FROM Atividade a"),
 @NamedQuery(name="Atividade.findByProjeto", query="SELECT a FROM Atividade a where a.projeto.projetoId = :projetoId")})
-public class Atividade implements Serializable {
+public class Atividade implements Serializable,Comparable<Atividade> {
 	private static final long serialVersionUID = 1L;
 	public static final String FIND_BY_PROJETO = "Atividade.findByProjeto";
 
@@ -239,6 +239,15 @@ public class Atividade implements Serializable {
 
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
+	}
+
+
+
+
+	@Override
+	public int compareTo(Atividade o) {
+		if(getDtInsert() == null ||  o.getDtInsert() == null) return 0;
+		return o.getDtInsert().compareTo(getDtInsert());
 	}
 	
 	
