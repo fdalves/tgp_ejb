@@ -1,5 +1,6 @@
 package ejb;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -84,7 +85,7 @@ import dao.UsuarioDAO;
 		try {
 			Usuario usuario = this.usuarioDAO.find(atividade.getGerente().getUsuarioId());
 			atividade.setGerente(usuario);
-			
+			atividade.setDtInsert(new Date());
 			List<DocAtividade> list = atividade.getDocAtividades();
 			if (list!=null && !list.isEmpty()){
 				for (DocAtividade docAtividade : list) {
@@ -136,7 +137,7 @@ import dao.UsuarioDAO;
 		String msg = null;
 		
 		try {
-			
+			oldAtiv.setDtInsert(new Date());
 			this.addDocAtividade(listDocOld, listDocNew, newAtiv);
 			this.removeDocAtividade(listDocOld, listDocNew, newAtiv);
 			
